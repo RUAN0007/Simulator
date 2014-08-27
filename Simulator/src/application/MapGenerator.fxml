@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="822.0" stylesheets="@Application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MapGeneratorController">
+   <children>
+      <MenuBar layoutY="0.0" prefHeight="30.0" prefWidth="824.0" styleClass="MenuItem">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#open" onMenuValidation="#open" text="Open" />
+                  <MenuItem mnemonicParsing="false" onAction="#save" onMenuValidation="#save" text="Save" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <GridPane id="Arena" fx:id="arena" layoutX="50.0" layoutY="75.0" onMouseExited="#onMouseHovered" onMouseMoved="#onMouseHovered" onMousePressed="#onMousePressed" prefHeight="480" prefWidth="420.0">
+        <columnConstraints>
+          <ColumnConstraints percentWidth="6.25" />
+          <ColumnConstraints percentWidth="6.25" />
+          <ColumnConstraints percentWidth="6.25" />
+          <ColumnConstraints percentWidth="6.25" />
+          <ColumnConstraints percentWidth="6.25" />
+          <ColumnConstraints percentWidth="6.25" />
+          <ColumnConstraints percentWidth="6.25" />
+          <ColumnConstraints percentWidth="6.25" />
+          <ColumnConstraints percentWidth="6.25" />
+          <ColumnConstraints percentWidth="6.25" />
+          <ColumnConstraints percentWidth="6.25" />
+          <ColumnConstraints percentWidth="6.25" />
+          <ColumnConstraints percentWidth="6.25" />
+          <ColumnConstraints percentWidth="6.25" />
+          <ColumnConstraints percentWidth="6.25" />
+          <ColumnConstraints percentWidth="6.25" />
+         
+         
+         
+        </columnConstraints>
+        <rowConstraints>
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+           <RowConstraints percentHeight="4.762" />
+          
+           
+        </rowConstraints>
+     
+     
+      </GridPane>
+      <Rectangle fx:id="demo" arcHeight="5.0" arcWidth="5.0" height="88.0" layoutX="625.0" layoutY="147.0" stroke="BLACK" strokeType="INSIDE" width="88.0" />
+      <Label layoutX="563.0" layoutY="285.0" text="Row:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="661.0" layoutY="285.0" text="Column:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="203.0" layoutX="552.0" layoutY="352.0" stroke="BLACK" strokeType="INSIDE" width="241.0" />
+      <Label fx:id="rowIndexLabel" layoutX="625.0" layoutY="285.0" text="A">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="colIndexLabel" layoutX="766.0" layoutY="285.0" text="1">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="572.0" layoutY="358.0" text="Unexplored:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="630.0" layoutY="401.0" text="Empty:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="598.0" layoutY="445.0" text="Obstacle:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Line endX="140.0" layoutX="652.0" layoutY="493.0" startX="-100.0" />
+      <Label layoutX="638.0" layoutY="504.0" text="Total:  300">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="unexploredCount" layoutX="720.0" layoutY="360.0" text="N.A.">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="emptyCount" layoutX="720.0" layoutY="404.0" text="N.A.">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="obstacleCount" layoutX="720.0" layoutY="445.0" text="N.A.">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="cellState" layoutX="620.0" layoutY="243.0" prefHeight="28.0" prefWidth="175.0" text="Obstacle">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="msgBox" layoutX="554.0" layoutY="80.0" prefHeight="55.0" prefWidth="241.0" text="asdfdsfasdfsdfdsdsfsd" textAlignment="CENTER" textFill="RED">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
