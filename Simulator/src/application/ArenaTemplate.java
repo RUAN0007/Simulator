@@ -8,7 +8,7 @@ import org.junit.Assert;
 
 import javafx.scene.control.Cell;
 
-public class ArenaMap {
+public class ArenaTemplate {
 	public enum CellState {UNEXPLORED,EMPTY,OBSTACLE};
 	
 	public class ArenaMapException extends Exception{
@@ -26,13 +26,13 @@ public class ArenaMap {
 	
 	private CellState[][] arena ;
 	
-	private int rowCount;
-	private int columnCount;
-	private int robotDiameter; 
-	public ArenaMap(int rowCount,int columnCount,int robotDiameter){
-		this.rowCount = rowCount;
-		this.columnCount = columnCount;
-		this.robotDiameter = robotDiameter;
+	private int rowCount = 20;
+	private int columnCount = 15;
+	private int robotDiameter = 3; 
+	public ArenaTemplate(){
+//		this.rowCount = rowCount;
+//		this.columnCount = columnCount;
+//		this.robotDiameter = robotDiameter;
 		arena = new CellState[this.rowCount][this.columnCount];
 		for(int rowIndex = 0;rowIndex < this.rowCount;rowIndex++){
 			for(int colIndex = 0;colIndex < this.columnCount;colIndex++){
@@ -52,9 +52,9 @@ public class ArenaMap {
 		}
 	}
 	
-	public ArenaMap(String descriptor) throws ArenaMapException{
-		this.setArenaMapFromDescriptor(descriptor);
-	}
+//	public ArenaMap(String descriptor) throws ArenaMapException{
+//		this.setArenaMapFromDescriptor(descriptor);
+//	}
 	
 	public int getCellTypeNum(CellState state){
 		//TODO
@@ -106,7 +106,7 @@ public class ArenaMap {
 		}catch(NumberFormatException e){
 			throw new ArenaMapException(2, "The descriptor contains some non-hex digit");
 		}
-		if(binStr.length() != 304){
+		if(binStr.length() != this.rowCount * this.columnCount + 4){
 			throw new ArenaMapException(3, "Invalid Map Descriptor");
 		}
 		
@@ -193,7 +193,7 @@ public class ArenaMap {
 		}
 	}
 
-	public CellState[][] getArenaMap(){
+	public CellState[][] getArenaTemplateMap(){
 		return this.arena;
 	}
 	

@@ -10,13 +10,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.ArenaMap.ArenaMapException;
-import application.ArenaMap.CellState;
+import application.ArenaTemplate.ArenaMapException;
+import application.ArenaTemplate.CellState;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -24,7 +23,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.PopupWindow.AnchorLocation;
 import javafx.stage.Stage;
 
 public class MapGeneratorController implements Initializable {
@@ -33,7 +31,7 @@ public class MapGeneratorController implements Initializable {
 	private static Color EMPTYCELLCOLOR = Color.WHITE;
 	private static Color OBSTACLECELLCOLOR = Color.BLACK;
 	
-	private ArenaMap arenaModel;
+	private ArenaTemplate arenaModel;
 	private File mapDescriptor;
 	
 	@FXML 
@@ -175,15 +173,15 @@ public class MapGeneratorController implements Initializable {
 	private void updateCellStateDisplay(int rowIndex, int columnIndex) {
 		if((0 <= rowIndex && rowIndex <= GlobalUtil.rowCount - 1 ) &&
 			     (0 <= columnIndex && columnIndex <= GlobalUtil.columnCount - 1)){
-		ArenaMap.CellState cellState = this.arenaModel.getCellState(rowIndex, columnIndex);
-			if(cellState == ArenaMap.CellState.UNEXPLORED){
+			ArenaTemplate.CellState cellState = this.arenaModel.getCellState(rowIndex, columnIndex);
+			if(cellState == ArenaTemplate.CellState.UNEXPLORED){
 				this.demo.setFill(UNEXPLOREDCELLCOLOR);
 				this.cellState.setText("Unexplored");
-			}else if(cellState == ArenaMap.CellState.EMPTY){
+			}else if(cellState == ArenaTemplate.CellState.EMPTY){
 				this.demo.setFill(EMPTYCELLCOLOR);
 				this.cellState.setText("Empty");
 	
-			}else if(cellState == ArenaMap.CellState.OBSTACLE){
+			}else if(cellState == ArenaTemplate.CellState.OBSTACLE){
 				this.demo.setFill(OBSTACLECELLCOLOR);
 				this.cellState.setText("Obstacle");
 	
@@ -212,7 +210,7 @@ public class MapGeneratorController implements Initializable {
     
     public void onViewShowed(){
 		this.setArenaMapModel(
-				new ArenaMap(GlobalUtil.rowCount,GlobalUtil.columnCount,GlobalUtil.robotDiameter)
+				new ArenaTemplate()
 		);
     }
     
@@ -230,7 +228,7 @@ public class MapGeneratorController implements Initializable {
 		int columnIndex = computeArenaColumnIndex(xCdn);
 		
 		Rectangle rec = getArenaCell(rowIndex, columnIndex);
-		ArenaMap.CellState newState = null;
+		ArenaTemplate.CellState newState = null;
 		//Change the cell state in a circular way: Unexplored -> Empty -> Obstacle
 		if(this.arenaModel.getCellState(rowIndex, columnIndex) 
 				== CellState.UNEXPLORED){
@@ -246,12 +244,12 @@ public class MapGeneratorController implements Initializable {
 		this.refreshView();
     }
     
-    private static void fillRectBaseOnState(Rectangle rec,ArenaMap.CellState cellState){
-	    	if(cellState == ArenaMap.CellState.UNEXPLORED){
+    private static void fillRectBaseOnState(Rectangle rec,ArenaTemplate.CellState cellState){
+	    	if(cellState == ArenaTemplate.CellState.UNEXPLORED){
 				rec.setFill(UNEXPLOREDCELLCOLOR);
-			}else if(cellState == ArenaMap.CellState.EMPTY){
+			}else if(cellState == ArenaTemplate.CellState.EMPTY){
 				rec.setFill(EMPTYCELLCOLOR);
-			}else if(cellState == ArenaMap.CellState.OBSTACLE){
+			}else if(cellState == ArenaTemplate.CellState.OBSTACLE){
 				rec.setFill(OBSTACLECELLCOLOR);
 			}else{
 				System.err.println("Invalid arena cell...");
@@ -263,7 +261,7 @@ public class MapGeneratorController implements Initializable {
 		return rec;
 	}
     
-    private void setArenaMapModel(ArenaMap model){
+    private void setArenaMapModel(ArenaTemplate model){
     		this.arenaModel = model;
     		if(this.arenaModel != null){
         		refreshView();
@@ -294,7 +292,7 @@ public class MapGeneratorController implements Initializable {
     private void refreshView(){
     		//Set the arena view based on the map from the model
     		
-    		CellState[][] map = this.arenaModel.getArenaMap();
+    		CellState[][] map = this.arenaModel.getArenaTemplateMap();
     		for(int rowIndex = 0;rowIndex < GlobalUtil.rowCount;rowIndex++){
     			for(int colIndex = 0;colIndex < GlobalUtil.columnCount;colIndex++){
     			
@@ -305,9 +303,9 @@ public class MapGeneratorController implements Initializable {
     			}
     		}
     		
-    		this.unexploredCount.setText("" + this.arenaModel.getCellTypeNum(ArenaMap.CellState.UNEXPLORED));
-    		this.obstacleCount.setText("" + this.arenaModel.getCellTypeNum(ArenaMap.CellState.OBSTACLE));
-    		this.emptyCount.setText("" + this.arenaModel.getCellTypeNum(ArenaMap.CellState.EMPTY));
+    		this.unexploredCount.setText("" + this.arenaModel.getCellTypeNum(ArenaTemplate.CellState.UNEXPLORED));
+    		this.obstacleCount.setText("" + this.arenaModel.getCellTypeNum(ArenaTemplate.CellState.OBSTACLE));
+    		this.emptyCount.setText("" + this.arenaModel.getCellTypeNum(ArenaTemplate.CellState.EMPTY));
 
     }
     
