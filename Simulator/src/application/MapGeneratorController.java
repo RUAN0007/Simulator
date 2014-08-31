@@ -211,7 +211,9 @@ public class MapGeneratorController implements Initializable {
 	}
     
     public void onViewShowed(){
-		this.setArenaMapModel(new ArenaMap());
+		this.setArenaMapModel(
+				new ArenaMap(GlobalUtil.rowCount,GlobalUtil.columnCount,GlobalUtil.robotDiameter)
+		);
     }
     
     @FXML

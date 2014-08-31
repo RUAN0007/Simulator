@@ -24,23 +24,28 @@ public class ArenaMap {
 		}
 	}
 	
-	private CellState[][] arena =
-			new CellState[GlobalUtil.rowCount][GlobalUtil.columnCount];
+	private CellState[][] arena ;
 	
-	 
-	public ArenaMap(){
-		for(int rowIndex = 0;rowIndex < GlobalUtil.rowCount;rowIndex++){
-			for(int colIndex = 0;colIndex < GlobalUtil.columnCount;colIndex++){
+	private int rowCount;
+	private int columnCount;
+	private int robotDiameter; 
+	public ArenaMap(int rowCount,int columnCount,int robotDiameter){
+		this.rowCount = rowCount;
+		this.columnCount = columnCount;
+		this.robotDiameter = robotDiameter;
+		arena = new CellState[this.rowCount][this.columnCount];
+		for(int rowIndex = 0;rowIndex < this.rowCount;rowIndex++){
+			for(int colIndex = 0;colIndex < this.columnCount;colIndex++){
 				this.arena[rowIndex][colIndex] = CellState.UNEXPLORED;
 			}
 		}
 		
 		//Set the bottom-left and upper-right corner to be empty for start and goal
-		for(int row = 0;row < GlobalUtil.robotDiameter;row ++){
-			for(int col = 0;col < GlobalUtil.robotDiameter;col ++){
-				this.arena[row + GlobalUtil.rowCount - GlobalUtil.robotDiameter][col] 
+		for(int row = 0;row < this.robotDiameter;row ++){
+			for(int col = 0;col < this.robotDiameter;col ++){
+				this.arena[row + this.rowCount - this.robotDiameter][col] 
 						= CellState.EMPTY;
-				this.arena[row][col + GlobalUtil.columnCount - GlobalUtil.robotDiameter]
+				this.arena[row][col + this.columnCount - this.robotDiameter]
 						= CellState.EMPTY;
 						
 			}
@@ -55,8 +60,8 @@ public class ArenaMap {
 		//TODO
 		
 		int count = 0;
-		for(int rowIndex = 0;rowIndex < GlobalUtil.rowCount;rowIndex++){
-			for(int colIndex = 0;colIndex < GlobalUtil.columnCount;colIndex++){
+		for(int rowIndex = 0;rowIndex < this.rowCount;rowIndex++){
+			for(int colIndex = 0;colIndex < this.columnCount;colIndex++){
 				if(this.arena[rowIndex][colIndex] == state){
 					count ++;
 				}
@@ -119,9 +124,9 @@ public class ArenaMap {
 		binStr = binStr.substring(2, 302);
 
 
-		for(int rowIndex = GlobalUtil.rowCount - 1; rowIndex >= 0;rowIndex--){
-			for(int colIndex = 0;colIndex < GlobalUtil.columnCount;colIndex++){
-				int strIndex = GlobalUtil.columnCount * (GlobalUtil.rowCount - 1 - rowIndex) + colIndex;
+		for(int rowIndex = this.rowCount - 1; rowIndex >= 0;rowIndex--){
+			for(int colIndex = 0;colIndex < this.columnCount;colIndex++){
+				int strIndex = this.columnCount * (this.rowCount - 1 - rowIndex) + colIndex;
 				if(binStr.charAt(strIndex) == '1'){
 					this.arena[rowIndex][colIndex] = CellState.EMPTY;
 				}else{
@@ -145,7 +150,7 @@ public class ArenaMap {
 			throw new ArenaMapException(4, "The number of bit in the descriptor is not enough");
 		}
 		
-		int rowIndex = GlobalUtil.rowCount - 1;
+		int rowIndex = this.rowCount - 1;
 		int colIndex = -1 ;
 		boolean finishCheckingCell = false;
 		for(int strIndex = 0;strIndex < binStr.length();strIndex++){
@@ -155,7 +160,7 @@ public class ArenaMap {
 			//If the traversal has finished, ensure the latter padding bits are all 0
 			do{
 				colIndex++;
-				if(colIndex == GlobalUtil.columnCount){
+				if(colIndex == this.columnCount){
 					colIndex = 0;
 					rowIndex --;
 				}
@@ -205,8 +210,8 @@ public class ArenaMap {
 		StringBuilder exploredDescriptor = new StringBuilder();
 		
 		//Traverse the arena map from bottom-left and up-right
-		for(int rowIndex = GlobalUtil.rowCount - 1; rowIndex >= 0;rowIndex--){
-			for(int colIndex = 0;colIndex < GlobalUtil.columnCount;colIndex++){
+		for(int rowIndex = this.rowCount - 1; rowIndex >= 0;rowIndex--){
+			for(int colIndex = 0;colIndex < this.columnCount;colIndex++){
 				if(this.arena[rowIndex][colIndex] == CellState.UNEXPLORED){
 					explorationDescriptor.append("0");
 				}else{
